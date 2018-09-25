@@ -1,35 +1,51 @@
-public class QuickSort implements SortingAlgorithm {
+import java.util.Arrays;
 
-	public void sort(int[] a) {
+public class QuickSort /*implements SortingAlgorithm*/ {
+
+	public static void main(String[] args) {
+		int[] test = new int[] {3, 5, 1, 2, 4};
+		sort(test);
+		System.out.println(Arrays.toString(test));
+
+	}
+
+	public static void sort(int[] a) {
 		quickSort(a, 0, a.length - 1);
 	}
 	
-	public void quickSort(int[] a, int left, int right) {
-		int pivot = partition(a, left, right);
-		quickSort(a, left, pivot - 1);
-		quickSort(a, pivot + 1, right);
+	public static void quickSort(int[] a, int left, int right) {
+		if (left < right) {
+			int pivot = partition(a, left, right);
+			System.out.println("left = " + left);
+			System.out.println("right = " + right);
+			System.out.println("pivot = " + pivot);
+
+			quickSort(a, left, pivot - 1);
+			System.out.println("Hello I'm starting to do quickSort on the right side");
+			quickSort(a, pivot + 1, right);
+		}
 	}
 
-	public int partition(int[] a, int left, int right) {
-		if (left < right) {
+	public static int partition(int[] a, int left, int right) {
 			int pivot = left;
 			int i = left + 1;
 			int k = right;
+			System.out.println(Arrays.toString(a));
 			while (i < k) {
-				while (i < right && a[i] < a[right]) {
+				while (i < right && a[i] < a[pivot]) {
 					i++;
 				}
 				while (k > i && a[k] > a[pivot]) {
 					k--;
 				}
 				if (i < k) {
-					swap(a, left, right);
+					swap(a, i, k);
 				}
+				System.out.println(Arrays.toString(a));
 			}
 			swap(a, pivot, k);
+			System.out.println(Arrays.toString(a));
 			return k;
-		}
-		return -1;
 	}
 
 	static void swap(int[] a, int index1, int index2) {
